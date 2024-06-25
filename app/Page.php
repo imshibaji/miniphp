@@ -19,8 +19,8 @@ class Page{
         $this->table(
             ['Name', 'Email', 'Password', 'Gender'], 
             [
-                ['Shibaji', 'shibaji@gmail.com', '123456', 'Male'],
-                ['Pradip', 'pradip@gmail.com', '123456', 'Male']
+                ['John', 'john@gmail.com', '123456', 'Male'],
+                ['Steve', 'steve@gmail.com', '123456', 'Male']
             ]
         );
         

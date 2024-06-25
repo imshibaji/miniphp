@@ -12,7 +12,7 @@ class ContactController extends Controller
 
     public function index(Request $request)
     {
-        $this->with('name', 'Shibaji Debnath');
+        $this->with('name', 'John');
         $this->render('contact');
     }
 }

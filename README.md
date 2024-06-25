@@ -1,6 +1,9 @@
 # Mini PHP
-This is a very tiny PHP Framework for PHP Developers. This framework have Samilar Like Features Like Laravel, Codeigniter.
-----
+
+This is a very tiny PHP Framework for PHP Developers. 
+--
+This framework have Samilar Like Features Like Laravel, Codeigniter.
+
 This Framework have All Important Features Like Laravel and Lumen. Routing, Controllers, Model, Views and Auth etc.
 
 This Framework is perfect any php servers. where anyone can be use this framework with minimum efforts. I hope PHP Developers like this framework for their development purpose. 
