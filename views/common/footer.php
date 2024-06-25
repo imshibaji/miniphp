@@ -1,2 +1,1 @@
-<h3>Page <?php __($title ?? 'Footer Part') ?></h3>
-<?php partial('common/foot') ?>
+<h3 class="text-center">Page <?php __($title ?? 'Footer Part') ?></h3>

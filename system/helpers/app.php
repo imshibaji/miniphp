@@ -1,5 +1,10 @@
 <?php 
-
+function dd($value){
+    echo '<pre>';
+    var_dump($value);
+    echo '</pre>';
+    exit;
+}
 function partial($template, $data = []){
     $view = new \Shibaji\Core\View();
     echo $view->partial($template, $data);
@@ -23,9 +28,9 @@ function to($link){
 }
 
 function assets($value){
-    $config = require 'config.php';
-    $url = trim($config['url'], '/');
-    $assets = trim($config['assetsUrl'], '/');
+    $app =  APP;
+    $url = trim($app['url'], '/');
+    $assets = trim($app['assetsUrl'], '/');
     return $url . '/'. $assets. '/' . trim($value, '/') ;
 }
 

@@ -6,8 +6,13 @@ class Router
     private $routes = [];
     private $closureRoutes = [];
     private $notFoundHandler;
-    private $cacheDir = __DIR__ . '/../cache/';
+    private Cache $cache;
     private $cacheDuration = 3600; // 1 hour by default
+
+    public function __construct()
+    {
+        $this->cache = new Cache(__DIR__ . '/../../cache/');
+    }
 
     public function get($path, $callback)
     {
@@ -79,7 +84,7 @@ class Router
 
     public function setCacheDir($dir)
     {
-        $this->cacheDir = rtrim($dir, '/') . '/';
+        $this->cache = new Cache($dir);
     }
 
     public function setCacheDuration($duration)
@@ -96,15 +101,15 @@ class Router
             parse_str($urlComponents['query'], $queryParams);
         }
 
-        $cacheFile = $this->getCacheFilePath($method, $path);
+        $cacheKey = $this->getCacheKey($method, $path);
         $route = null;
 
-        if ($this->isCacheValid($cacheFile)) {
-            $route = unserialize(file_get_contents($cacheFile));
+        if ($this->cache->has($cacheKey)) {
+            $route = $this->cache->get($cacheKey);
         } else {
             $route = $this->findRoute($method, $path);
             if ($route && !$route['is_closure']) {
-                $this->saveCache($cacheFile, $route);
+                $this->cache->set($cacheKey, $route, $this->cacheDuration);
             }
         }
 
@@ -113,17 +118,16 @@ class Router
             $request = new Request($params);
 
             if ($route['is_closure']) {
-                call_user_func($route['callback'], $request);
+                return call_user_func($route['callback'], $request);
             } else {
-                $this->handleCallback($route['callback'], $request, $params);
+                return $this->handleCallback($route['callback'], $request, $params);
             }
-            return;
         }
 
         if ($this->notFoundHandler) {
-            call_user_func($this->notFoundHandler);
+            return call_user_func($this->notFoundHandler);
         } else {
-            echo "404 Not Found";
+            return "404 Not Found";
         }
     }
 
@@ -163,43 +167,24 @@ class Router
         return true;
     }
 
-    private function getCacheFilePath($method, $path)
+    private function getCacheKey($method, $path)
     {
-        $cacheKey = md5($method . $path);
-        return $this->cacheDir . $cacheKey . '.cache';
-    }
-
-    private function isCacheValid($cacheFile)
-    {
-        if (!file_exists($cacheFile)) {
-            return false;
-        }
-
-        return (time() - filemtime($cacheFile)) < $this->cacheDuration;
-    }
-
-    private function saveCache($cacheFile, $data)
-    {
-        if (!is_dir($this->cacheDir)) {
-            mkdir($this->cacheDir, 0777, true);
-        }
-
-        file_put_contents($cacheFile, serialize($data));
+        return md5($method . $path);
     }
 
     private function handleCallback($callback, $request, $params)
     {
         if (is_array($callback) && count($callback) === 2 && class_exists($callback[0])) {
             $controller = new $callback[0]();
-            call_user_func([$controller, $callback[1]], $request);
+            return call_user_func([$controller, $callback[1]], $request);
         } elseif (is_string($callback) && strpos($callback, '@') !== false) {
             list($controllerName, $methodName) = explode('@', $callback);
             $controller = new $controllerName;
-            call_user_func([$controller, $methodName], $request);
+            return call_user_func([$controller, $methodName], $request);
         } elseif ($this->expectsRequestObject($callback)) {
-            call_user_func($callback, $request);
+            return call_user_func($callback, $request);
         } else {
-            call_user_func_array($callback, $params);
+            return call_user_func_array($callback, $params);
         }
     }
 
@@ -219,6 +204,6 @@ class Router
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $uri = $_SERVER['REQUEST_URI'];
-        $this->dispatch($method, $uri);
+        return $this->dispatch($method, $uri);
     }
 }
