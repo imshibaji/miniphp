@@ -1,0 +1,19 @@
+{
+    "name": "shibaji/miniphp",
+    "description": "This is php ai test program",
+    "autoload": {
+        "psr-4": {
+            "Shibaji\\App\\": "app/",
+            "Shibaji\\Core\\": "core/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Shibaji Debnath",
+            "email": "imshibaji@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.0"
+    }
+}
