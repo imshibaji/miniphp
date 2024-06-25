@@ -1,9 +1,9 @@
 <?php 
 namespace Shibaji\App\Models;
 
-use Shibaji\Core\Model;
+use Shibaji\Models\BaseModel;
 
-class User extends Model
+class User extends BaseModel
 {
     protected $table = 'users';
 

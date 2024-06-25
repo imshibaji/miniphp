@@ -10,8 +10,8 @@ class AboutController extends Controller
         parent::__construct('About Page');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $this->render('about', ['name' => 'Shibaji']);
+        $this->render('about', ['name' => $request->name ?? 'John']);
     }
 }

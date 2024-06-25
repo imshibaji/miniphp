@@ -1,5 +1,5 @@
 <?php
-namespace Shibaji\Core;
+namespace Shibaji\Models;
 
 use App\Models\User;
 

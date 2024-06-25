@@ -25,7 +25,7 @@ class Controller extends View
             ],
             ['label' => 'Contact', 'url' => '/contact'],
         ]);
-        $this->render('common/header');
+        $this->render('common/header',[],false);
     }
 
     public function links(){
