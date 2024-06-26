@@ -1,13 +1,7 @@
-<?php partial('common/footer', ['title' => 'Home Test Page']) ?>
+<?php view('common/header') ?>
 <div class="container">
-    <h1>Welcome, <?php __($name) ?></h1>
-
-    <ul>
-        <?php foreach ($items as $item): ?>
-            <li><?php __($item); ?></li>
-        <?php endforeach; ?>
-    </ul>
+    <h1>Welcome <?php __($name ?? 'Guest') ?></h1>
 
     <p>Current Time: <?php __(date('Y-m-d H:i:s')) ?></p>
 </div>
-<?php partial('common/footer') ?>
+<?php view('common/footer') ?>

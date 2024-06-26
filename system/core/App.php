@@ -4,11 +4,15 @@ class App{
     private $app;
     public function __construct()
     {
+        Env::load(__DIR__.'/../../.env');
         $this->init();
     }
 
     public function init()
     {
+        // Healpers
+        $this->helpers();
+
         // Configuration Files
         if(file_exists('config/app.php')){
             $this->app = require 'config/app.php';
@@ -17,6 +21,22 @@ class App{
             $this->app = require 'system/config/app.php';
             define('APP', $this->app);
         }
+
+        // Database
+        $this->database();
+    }
+
+    public function database(){
+        //Loads Database
+        if(file_exists('config/database.php')){
+            $db = require 'config/database.php';
+        }else{
+            $db = require 'system/config/database.php';
+        }
+        $this->register('db', $db);
+    }
+
+    public function helpers(){
         // Load Helpers
         if(file_exists('config/helpers.php')){
             $helpers = require 'config/helpers.php';
@@ -29,14 +49,6 @@ class App{
         foreach ($this->app['helpers'] as $helper) {
             require $helper;
         }
-
-        // Database
-        if(file_exists('config/database.php')){
-            $db = require 'config/database.php';
-        }else{
-            $db = require 'system/config/database.php';
-        }
-        $this->register('db', $db);
     }
 
     public function run()
@@ -47,10 +59,6 @@ class App{
         }
     }
 
-    public function get($key){
-        return $this->app[$key];
-    }
-
     public function exec(){
         Console::welcome();
         foreach ($this->app['run']['console'] as $console) {
@@ -59,6 +67,10 @@ class App{
         Console::runQuick();
         
         return $this->app;
+    }
+
+    public function get($key){
+        return $this->app[$key];
     }
 
     public function build(){

@@ -1,8 +1,11 @@
 <?php
 return [
-    'name' => 'MiniPHP',
-    'version' => '1.0.0',
-    'url' => 'http://localhost:3000',
+    'name' => env('APP_NAME', 'Miniphp'),
+    'version' => env('APP_VERSION', '1.0.0'),
+    'env' => 'local',
+    'debug' => env('APP_DEBUG', false),
+    'timezone' => 'Asia/Kolkata',
+    'url' => env('APP_URL', 'http://localhost'),
     'assetsUrl' => 'assets',
     'run' => [
         'console' => [

@@ -6,19 +6,21 @@ use Shibaji\Core\Router;
 $router = new Router();
 $router->get('/', '\Shibaji\App\Controllers\HomeController@index');
 
+// $router->get('/', function (Request $request) {
+//     view('home', ['name' => 'John']);
+//  });
+
 $router->post('/', function (Request $request) {
     echo $request->getJsonBody();
     echo $request->getPath();
 });
-$router->get('/about','\Shibaji\App\Controllers\AboutController@index');
-$router->get('/about/:name','\Shibaji\App\Controllers\AboutController@index');
-$router->get('/contact', '\Shibaji\App\Controllers\ContactController@index');
 
-$router->get('/user', '\Shibaji\App\Controllers\User@index');
-$router->get('/user/:id', '\Shibaji\App\Controllers\User@index');
+$router->get('/about', function(){
+    view('about');
+});
 
-$router->get('/profile', function (Request $request) {
-   view('home', ['name' => $request->name]);
+$router->get('/contact', function(){
+    view('contact');
 });
 
 $router->setNotFoundHandler(function () {

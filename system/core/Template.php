@@ -3,6 +3,7 @@ namespace Shibaji\Core;
 
 class Template
 {
+    protected array $data = [];
     private $templateDir;
     private $cacheDir;
     private $cacheDuration;
@@ -16,7 +17,7 @@ class Template
      * @param int $cacheDuration The duration in seconds for which the cache is valid.
      * @param bool $cacheEnabled Whether caching is enabled.
      */
-    public function __construct($templateDir = __DIR__ . '/../../templates/', $cacheDir = __DIR__ . '/../cache/templates/', $cacheDuration = 3600, $cacheEnabled = true)
+    public function __construct($templateDir = __DIR__ . '/../../views/', $cacheDir = __DIR__ . '/../../cache/views/', $cacheDuration = 3600, $cacheEnabled = true)
     {
         $this->templateDir = rtrim($templateDir, '/') . '/';
         $this->cacheDir = rtrim($cacheDir, '/') . '/';
@@ -30,6 +31,19 @@ class Template
     }
 
     /**
+     * Adds data to the template.
+     *
+     * @param string $key The name of the data.
+     * @param mixed $value The value of the data.
+     * @return $this
+     */
+    public function with($key, $value)
+    {
+        $this->data[$key] = $value;
+        return $this;
+    }
+
+    /**
      * Renders a template with provided data, optionally using caching.
      *
      * @param string $templateName The name of the template file (without extension).
@@ -39,6 +53,7 @@ class Template
      */
     public function render($templateName, $data = [], $useCache = true)
     {
+        $data = array_merge($this->data, $data);
         if ($useCache && $this->cacheEnabled) {
             $cacheKey = $this->getCacheKey($templateName, $data);
 
@@ -51,6 +66,13 @@ class Template
 
         // Render the template
         $templateFile = $this->templateDir . $templateName . '.php';
+
+        if (!file_exists($templateFile)) {
+            echo $templateFile . ' does not exist'. PHP_EOL;
+            // Template not found
+            echo "Template '$templateName' not found.";
+            return false;
+        }
 
         ob_start();
         extract($data); // Extract data to make variables available in the template

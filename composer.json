@@ -11,7 +11,7 @@
     "authors": [
         {
             "name": "Shibaji Debnath",
-            "email": "imshibaji@gmail.com"
+            "email": "me@shibajidebnath.com"
         }
     ],
     "require": {
@@ -24,6 +24,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "serve": "php -S localhost:3000"
+        "serve": "php cmp serve"
     }
 }

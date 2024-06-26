@@ -1,1 +1,2 @@
-<h3 class="text-center">Page <?php __($title ?? 'Footer Part') ?></h3>
+<h6 class="text-center">Powered by <?php __(APP['name'] ?? 'Footer Part') ?></h6>
+<?php view('common/foot') ?>

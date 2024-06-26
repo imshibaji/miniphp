@@ -15,7 +15,7 @@ Console::command('hello {name}', function ($name) {
 
 // Register the serve command to start the PHP built-in server
 Console::command('serve', function ($host = '127.0.0.1', $port = '3000') {
-    Console::writeLine("Starting server on http://$host:$port...");
+    Console::writeColored("Starting server on http://$host:$port...\n\n", Console::ANSI_BLUE);
     passthru("php -S $host:$port");
 });
 
