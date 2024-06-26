@@ -16,7 +16,7 @@ class Template
      * @param int $cacheDuration The duration in seconds for which the cache is valid.
      * @param bool $cacheEnabled Whether caching is enabled.
      */
-    public function __construct($templateDir = __DIR__ . '/../../templates/', $cacheDir = __DIR__ . '/../cache/', $cacheDuration = 3600, $cacheEnabled = true)
+    public function __construct($templateDir = __DIR__ . '/../../templates/', $cacheDir = __DIR__ . '/../cache/templates/', $cacheDuration = 3600, $cacheEnabled = true)
     {
         $this->templateDir = rtrim($templateDir, '/') . '/';
         $this->cacheDir = rtrim($cacheDir, '/') . '/';

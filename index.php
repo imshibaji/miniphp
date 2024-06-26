@@ -6,7 +6,8 @@ use Shibaji\Core\SpeedTest;
 
 $speed = new SpeedTest();
 $speed->run(function(){
-    new App();
+    $app = new App();
+    $app->run();
 });
-// $speed->printConsoleElapsedTime();
+$speed->printConsoleElapsedTime();
 ?>

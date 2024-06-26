@@ -5,11 +5,11 @@ return [
     'url' => 'http://localhost:3000',
     'assetsUrl' => 'assets',
     'run' => [
-        'web' => [
-            'routes/web.php'
-        ],
         'console' => [
             'routes/console.php'
+        ],
+        'web' => [
+            'routes/web.php'
         ],
     ]
 ];

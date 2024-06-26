@@ -1,4 +1,6 @@
 <?php
 require 'vendor/autoload.php';
-$test = new \Shibaji\Test\PredictionTest();
-$test->run();
+
+use Shibaji\Core\App;
+$app = new App();
+$app->exec();

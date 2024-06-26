@@ -25,4 +25,4 @@ $router->setNotFoundHandler(function () {
     echo '404 Not Found';
 });
 
-$router->resolve();
+return $router;

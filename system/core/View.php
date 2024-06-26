@@ -7,7 +7,7 @@ class View extends Html
     protected string $defaultTemplatePath = 'views/';
     protected array $data = [];
     protected Cache $cache;
-    protected string $cacheDir = __DIR__ . '/../../cache/';
+    protected string $cacheDir = __DIR__ . '/../../cache/views/';
     protected int $cacheDuration = 3600; // 1 hour by default
 
     public function __construct()

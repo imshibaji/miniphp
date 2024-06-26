@@ -11,7 +11,7 @@ class Router
 
     public function __construct()
     {
-        $this->cache = new Cache(__DIR__ . '/../../cache/');
+        $this->cache = new Cache(__DIR__ . '/../../cache/routes/');
     }
 
     public function get($path, $callback)
